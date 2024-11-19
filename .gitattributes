@@ -1,0 +1,4 @@
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+videos/StopMotion.mp4 filter=lfs diff=lfs merge=lfs -text
+videos/YSLV1.mp4 filter=lfs diff=lfs merge=lfs -text
+videos/LYRIQ.mp4 filter=lfs diff=lfs merge=lfs -text
