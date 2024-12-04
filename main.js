@@ -6,8 +6,8 @@ function createVideoElement(src) {
     const video = document.createElement('video');
     video.crossOrigin = "anonymous";
     
-    // Use a single, direct source with the correct path
-    const videoUrl = `https://gabbypaulinahamill.github.io/video-fixes/${src}`;
+    // Use the raw GitHub content URL for the video-fixes branch
+    const videoUrl = `https://raw.githubusercontent.com/gabbypaulinahamill/PortfolioWebsite/video-fixes/${src}`;
     console.log('🎥 Loading video:', videoUrl);
     
     video.src = videoUrl;
@@ -22,11 +22,16 @@ function createVideoElement(src) {
             code: video.error?.code,
             message: video.error?.message
         });
-    });
-    
-    // Auto-play when possible
-    video.addEventListener('loadedmetadata', () => {
-        video.play().catch(e => console.warn('Auto-play failed:', e));
+        
+        // Test if video exists
+        fetch(videoUrl, { method: 'HEAD' })
+            .then(response => {
+                console.log('Video file status:', {
+                    status: response.status,
+                    type: response.headers.get('content-type')
+                });
+            })
+            .catch(error => console.error('Fetch error:', error));
     });
     
     return video;
