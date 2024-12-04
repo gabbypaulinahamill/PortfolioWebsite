@@ -5,29 +5,53 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 function createVideoElement(src) {
     const video = document.createElement('video');
     video.crossOrigin = "anonymous";
-    video.src = src;
+    
+    // Add multiple source formats
+    const sourceMP4 = document.createElement('source');
+    sourceMP4.src = src;
+    sourceMP4.type = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
+    
+    video.appendChild(sourceMP4);
+    
     video.loop = true;
     video.muted = true;
     video.playsInline = true;
     
-    // Add error handling
+    // Enhanced error handling
     video.onerror = function() {
         console.error(`Error loading video: ${src}`);
-        console.error('Error code:', video.error?.code);
-        console.error('Error message:', video.error?.message);
+        if (video.error) {
+            console.error('Error code:', video.error.code);
+            console.error('Error message:', video.error.message);
+            // Error code 4 is MEDIA_ERR_SRC_NOT_SUPPORTED
+            if (video.error.code === 4) {
+                console.error('Video format or CORS settings may be incorrect');
+            }
+        }
+        // Try fallback to base64 or lower quality version
+        video.src = src.replace('.mp4', '_fallback.mp4');
     };
     
     video.onloadeddata = function() {
         console.log(`Video loaded successfully: ${src}`);
     };
     
-    video.play().catch(function(error) {
-        console.log("Video play failed:", error);
-        // Handle autoplay failure
-        video.muted = true;
-        video.play().catch(console.error);
-    });
+    // Handle autoplay with retry
+    const playVideo = () => {
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(function(error) {
+                console.log("Video play failed:", error);
+                if (error.name === "NotSupportedError") {
+                    console.log("Retrying with muted playback...");
+                    video.muted = true;
+                    setTimeout(() => playVideo(), 1000);
+                }
+            });
+        }
+    };
     
+    playVideo();
     return video;
 }
 
@@ -733,3 +757,4 @@ function onClick(event) {
         }
     }
 }
+
