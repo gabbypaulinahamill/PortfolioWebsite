@@ -6,8 +6,12 @@ function createVideoElement(src) {
     const video = document.createElement('video');
     video.crossOrigin = "anonymous";
     
-    // Set the source directly on video element
-    video.src = `https://gabbypaulinahamill.github.io/PortfolioWebsite/${src}`;
+    // Encode the filename to handle spaces and special characters
+    const encodedSrc = src.split('/').map(part => encodeURIComponent(part)).join('/');
+    const fullPath = `https://gabbypaulinahamill.github.io/PortfolioWebsite/${encodedSrc}`;
+    
+    console.log('Loading video from:', fullPath);
+    video.src = fullPath;
     video.type = 'video/mp4';
     
     video.loop = true;
@@ -16,38 +20,26 @@ function createVideoElement(src) {
     
     // Enhanced error handling
     video.onerror = function() {
-        console.error(`Error loading video: ${src}`);
+        console.error(`Error loading video: ${fullPath}`);
         if (video.error) {
             console.error('Error code:', video.error.code);
             console.error('Error message:', video.error.message);
             // Try loading from relative path if absolute fails
-            if (video.error.code === 4) {
-                console.log('Trying relative path...');
-                video.src = src;
-            }
+            console.log('Trying relative path...');
+            video.src = src;
         }
     };
     
     video.onloadeddata = function() {
-        console.log(`Video loaded successfully: ${src}`);
+        console.log(`Video loaded successfully: ${fullPath}`);
     };
     
-    // Handle autoplay with retry
-    const playVideo = () => {
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-            playPromise.catch(function(error) {
-                console.log("Video play failed:", error);
-                if (error.name === "NotSupportedError") {
-                    console.log("Retrying with muted playback...");
-                    video.muted = true;
-                    setTimeout(() => playVideo(), 1000);
-                }
-            });
-        }
-    };
+    video.play().catch(function(error) {
+        console.log("Video play failed:", error);
+        video.muted = true;
+        video.play().catch(console.error);
+    });
     
-    playVideo();
     return video;
 }
 
