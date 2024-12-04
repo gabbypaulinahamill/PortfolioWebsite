@@ -6,6 +6,9 @@ function createVideoElement(src) {
     const video = document.createElement('video');
     video.crossOrigin = "anonymous";
     
+    // Only log once per video
+    console.group(`🎥 Loading video: ${src}`);
+    
     // Create multiple source elements with different base URLs
     const sources = [
         `https://raw.githubusercontent.com/gabbypaulinahamill/PortfolioWebsite/main/${src}`,
@@ -13,8 +16,6 @@ function createVideoElement(src) {
         `/${src}`,
         src
     ];
-    
-    console.log('Trying video sources:', sources);
     
     // Try each source
     sources.forEach(sourceUrl => {
@@ -28,25 +29,21 @@ function createVideoElement(src) {
     video.muted = true;
     video.playsInline = true;
     
-    // Enhanced error handling
+    // Simplified error handling
     video.onerror = function() {
-        console.group(`Video Error Details for ${src}`);
-        console.error('Error code:', video.error?.code);
-        console.error('Error message:', video.error?.message);
-        console.error('Failed sources:', sources);
-        console.error('Network state:', video.networkState);
-        console.error('Ready state:', video.readyState);
-        console.groupEnd();
+        console.error('Video failed to load:', {
+            src: src,
+            errorCode: video.error?.code,
+            errorMessage: video.error?.message
+        });
         
-        // Try fetching the first source to check headers
+        // Test direct access to first source
         fetch(sources[0], { method: 'HEAD' })
-            .then(response => {
-                console.log('File headers:', {
-                    status: response.status,
-                    type: response.headers.get('content-type'),
-                    size: response.headers.get('content-length')
-                });
-            })
+            .then(response => console.log('File headers:', {
+                status: response.status,
+                type: response.headers.get('content-type'),
+                size: response.headers.get('content-length')
+            }))
             .catch(error => console.error('Fetch error:', error));
     };
     
