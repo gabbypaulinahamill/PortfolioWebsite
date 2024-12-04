@@ -6,12 +6,9 @@ function createVideoElement(src) {
     const video = document.createElement('video');
     video.crossOrigin = "anonymous";
     
-    // Add multiple source formats
-    const sourceMP4 = document.createElement('source');
-    sourceMP4.src = `/PortfolioWebsite/${src}`;
-    sourceMP4.type = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
-    
-    video.appendChild(sourceMP4);
+    // Set the source directly on video element
+    video.src = `https://gabbypaulinahamill.github.io/PortfolioWebsite/${src}`;
+    video.type = 'video/mp4';
     
     video.loop = true;
     video.muted = true;
@@ -23,13 +20,12 @@ function createVideoElement(src) {
         if (video.error) {
             console.error('Error code:', video.error.code);
             console.error('Error message:', video.error.message);
-            // Error code 4 is MEDIA_ERR_SRC_NOT_SUPPORTED
+            // Try loading from relative path if absolute fails
             if (video.error.code === 4) {
-                console.error('Video format or CORS settings may be incorrect');
+                console.log('Trying relative path...');
+                video.src = src;
             }
         }
-        // Try fallback to base64 or lower quality version
-        video.src = src.replace('.mp4', '_fallback.mp4');
     };
     
     video.onloadeddata = function() {
