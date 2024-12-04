@@ -8,7 +8,7 @@ function createVideoElement(src) {
     
     // Add multiple source formats
     const sourceMP4 = document.createElement('source');
-    sourceMP4.src = src;
+    sourceMP4.src = `/PortfolioWebsite/${src}`;
     sourceMP4.type = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
     
     video.appendChild(sourceMP4);
@@ -86,7 +86,7 @@ scene.add(ambientLight);
 
 // Removed directional light and hemisphere light
 
-const loader = new GLTFLoader().setPath('models/');
+const loader = new GLTFLoader().setPath('/PortfolioWebsite/models/');
 
 // Add this helper function at the top of your file, after the scene setup
 const occupiedPositions = [];
