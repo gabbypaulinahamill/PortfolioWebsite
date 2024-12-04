@@ -6,36 +6,40 @@ function createVideoElement(src) {
     const video = document.createElement('video');
     video.crossOrigin = "anonymous";
     
-    // Encode the filename to handle spaces and special characters
-    const encodedSrc = src.split('/').map(part => encodeURIComponent(part)).join('/');
-    const fullPath = `https://gabbypaulinahamill.github.io/PortfolioWebsite/${encodedSrc}`;
+    // Check if we're running locally or on GitHub Pages
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
     
-    console.log('Loading video from:', fullPath);
-    video.src = fullPath;
+    // Set video source based on environment
+    if (isLocal) {
+        video.src = src;
+    } else {
+        // Remove leading slash if present
+        const cleanSrc = src.startsWith('/') ? src.slice(1) : src;
+        video.src = `https://raw.githubusercontent.com/gabbypaulinahamill/PortfolioWebsite/main/${cleanSrc}`;
+    }
+    
     video.type = 'video/mp4';
-    
     video.loop = true;
     video.muted = true;
     video.playsInline = true;
     
     // Enhanced error handling
     video.onerror = function() {
-        console.error(`Error loading video: ${fullPath}`);
+        console.error(`Error loading video from: ${video.src}`);
         if (video.error) {
             console.error('Error code:', video.error.code);
             console.error('Error message:', video.error.message);
-            // Try loading from relative path if absolute fails
-            console.log('Trying relative path...');
-            video.src = src;
         }
     };
     
     video.onloadeddata = function() {
-        console.log(`Video loaded successfully: ${fullPath}`);
+        console.log(`Video loaded successfully from: ${video.src}`);
     };
     
+    // Ensure video plays
     video.play().catch(function(error) {
         console.log("Video play failed:", error);
+        // Always try with muted if initial play fails
         video.muted = true;
         video.play().catch(console.error);
     });
