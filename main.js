@@ -103,6 +103,9 @@ const video = createVideoElement('videos/rorschech video.mp4');
 
 const videoTexture = new THREE.VideoTexture(video);
 videoTexture.flipY = false; // Flip the texture coordinates
+videoTexture.minFilter = THREE.LinearFilter;
+videoTexture.magFilter = THREE.LinearFilter;
+videoTexture.format = THREE.RGBAFormat;
 
 loader.load('Rorschech_C4Dmodel.gltf', (gltf) => {
   console.log('Second model loaded successfully');
@@ -141,6 +144,9 @@ const video2 = createVideoElement('videos/VirtualProduction700x540.mp4');
 
 const videoTexture2 = new THREE.VideoTexture(video2);
 videoTexture2.flipY = false; // Flip the texture coordinates 
+videoTexture2.minFilter = THREE.LinearFilter;
+videoTexture2.magFilter = THREE.LinearFilter;
+videoTexture2.format = THREE.RGBAFormat;
 
 loader.load('VirtualProduction_C4DBlankmodelV2.gltf', (gltf) => {
   console.log('Third model loaded successfully');
@@ -180,6 +186,9 @@ const video3 = createVideoElement('videos/EIQ889x500.mp4');
 
 const videoTexture3 = new THREE.VideoTexture(video3);
 videoTexture3.flipY = false; // Flip the texture coordinates
+videoTexture3.minFilter = THREE.LinearFilter;
+videoTexture3.magFilter = THREE.LinearFilter;
+videoTexture3.format = THREE.RGBAFormat;
 
 loader.load('EIQ_C4Dmodel.gltf', (gltf) => {
   console.log('Fourth model loaded successfully');
@@ -218,6 +227,9 @@ const video4 = createVideoElement('videos/RedTriangle.mp4');
 
 const videoTexture4 = new THREE.VideoTexture(video4);
 videoTexture4.flipY = false; // Flip the texture coordinates
+videoTexture4.minFilter = THREE.LinearFilter;
+videoTexture4.magFilter = THREE.LinearFilter;
+videoTexture4.format = THREE.RGBAFormat;
 
 loader.load('RedTriangle_C4Dmodel_400x400.gltf', (gltf) => {
   console.log('Fifth model loaded successfully');
@@ -256,6 +268,9 @@ const video5 = createVideoElement('videos/LYRIQ.mp4');
 
 const videoTexture5 = new THREE.VideoTexture(video5);
 videoTexture5.flipY = false; // Flip the texture coordinates
+videoTexture5.minFilter = THREE.LinearFilter;
+videoTexture5.magFilter = THREE.LinearFilter;
+videoTexture5.format = THREE.RGBAFormat;
 
 loader.load('Lyriq.gltf', (gltf) => {
   console.log('Sixth model loaded successfully');
@@ -294,6 +309,9 @@ const video6 = createVideoElement('videos/707.mp4');
 
 const videoTexture6 = new THREE.VideoTexture(video6);
 videoTexture6.flipY = false; // Flip the texture coordinates
+videoTexture6.minFilter = THREE.LinearFilter;
+videoTexture6.magFilter = THREE.LinearFilter;
+videoTexture6.format = THREE.RGBAFormat;
 
 loader.load('707.gltf', (gltf) => {
   console.log('Seventh model loaded successfully');
@@ -332,6 +350,9 @@ const video7 = createVideoElement('videos/StopMotion.mp4');
 
 const videoTexture7 = new THREE.VideoTexture(video7);
 videoTexture7.flipY = false; // Flip the texture coordinates
+videoTexture7.minFilter = THREE.LinearFilter;
+videoTexture7.magFilter = THREE.LinearFilter;
+videoTexture7.format = THREE.RGBAFormat;
 
 loader.load('StopMotion2.gltf', (gltf) => {
   console.log('Eighth model loaded successfully');
@@ -370,6 +391,9 @@ const video8 = createVideoElement('videos/DFCU.mp4');
 
 const videoTexture8 = new THREE.VideoTexture(video8);
 videoTexture8.flipY = false; // Flip the texture coordinates
+videoTexture8.minFilter = THREE.LinearFilter;
+videoTexture8.magFilter = THREE.LinearFilter;
+videoTexture8.format = THREE.RGBAFormat;
 
 loader.load('dfcu.gltf', (gltf) => {
   console.log('Ninth model loaded successfully');
@@ -408,6 +432,9 @@ const video9 = createVideoElement('videos/YSLV3.mp4');
 
 const videoTexture9 = new THREE.VideoTexture(video9);
 videoTexture9.flipY = false; // Flip the texture coordinates
+videoTexture9.minFilter = THREE.LinearFilter;
+videoTexture9.magFilter = THREE.LinearFilter;
+videoTexture9.format = THREE.RGBAFormat;
 
 loader.load('YSLV1.gltf', (gltf) => {
   console.log('Tenth model loaded successfully');
@@ -446,6 +473,9 @@ const video10 = createVideoElement('videos/XP4.mp4');
 
 const videoTexture10 = new THREE.VideoTexture(video10);
 videoTexture10.flipY = false; // Flip the texture coordinates
+videoTexture10.minFilter = THREE.LinearFilter;
+videoTexture10.magFilter = THREE.LinearFilter;
+videoTexture10.format = THREE.RGBAFormat;
 
 loader.load('XP.gltf', (gltf) => {
   console.log('Eleventh model loaded successfully');
@@ -484,6 +514,9 @@ const video11 = createVideoElement('videos/RB.mp4');
 
 const videoTexture11 = new THREE.VideoTexture(video11);
 videoTexture11.flipY = false; // Flip the texture coordinates
+videoTexture11.minFilter = THREE.LinearFilter;
+videoTexture11.magFilter = THREE.LinearFilter;
+videoTexture11.format = THREE.RGBAFormat;
 
 loader.load('RB.gltf', (gltf) => {
   console.log('Twelfth model loaded successfully');
@@ -678,12 +711,13 @@ function createVideoElement(src) {
     video.src = src;
     video.loop = true;
     video.muted = true;
+    video.playsInline = true;
     
     // Add error handling
     video.onerror = function() {
         console.error(`Error loading video: ${src}`);
-        console.error('Error code:', video.error.code);
-        console.error('Error message:', video.error.message);
+        console.error('Error code:', video.error?.code);
+        console.error('Error message:', video.error?.message);
     };
     
     video.onloadeddata = function() {
@@ -692,6 +726,9 @@ function createVideoElement(src) {
     
     video.play().catch(function(error) {
         console.log("Video play failed:", error);
+        // Handle autoplay failure
+        video.muted = true;
+        video.play().catch(console.error);
     });
     
     return video;

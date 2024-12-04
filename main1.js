@@ -58,14 +58,13 @@ loader.load('ChaseAndI_C4Dmodel_300x400.gltf', (gltf) => {
 });
 
 // Load the second model and apply video texture
-const video = document.createElement('video');
-video.src = 'videos/rorschech video.mp4'; // Use the relative path to your video file
-video.loop = true;
-video.muted = true;
-video.play();
+const video = createVideoElement('videos/rorschech video.mp4');
 
 const videoTexture = new THREE.VideoTexture(video);
-videoTexture.flipY = false; // Flip the texture coordinates
+videoTexture.flipY = false;
+videoTexture.minFilter = THREE.LinearFilter;
+videoTexture.magFilter = THREE.LinearFilter;
+videoTexture.format = THREE.RGBAFormat;
 
 loader.load('Rorschech_C4Dmodel.gltf', (gltf) => {
   console.log('Second model loaded successfully');
@@ -91,14 +90,13 @@ loader.load('Rorschech_C4Dmodel.gltf', (gltf) => {
 });
 
 // Load the third model and apply video texture
-const video2 = document.createElement('video');
-video2.src = 'videos/VirtualProduction700x540.mp4'; // Use the relative path to your video file
-video2.loop = true;
-video2.muted = true;
-video2.play();
+const video2 = createVideoElement('videos/VirtualProduction700x540.mp4');
 
 const videoTexture2 = new THREE.VideoTexture(video2);
 videoTexture2.flipY = false; // Flip the texture coordinates 
+videoTexture2.minFilter = THREE.LinearFilter;
+videoTexture2.magFilter = THREE.LinearFilter;
+videoTexture2.format = THREE.RGBAFormat;
 
 loader.load('VirtualProduction_C4DBlankmodelV2.gltf', (gltf) => {
   console.log('Third model loaded successfully');
@@ -125,14 +123,13 @@ loader.load('VirtualProduction_C4DBlankmodelV2.gltf', (gltf) => {
 
 
 // Load the fourth model and apply video texture
-const video3 = document.createElement('video');
-video3.src = 'videos/EIQ889x500.mp4'; // Use the relative path to your video file
-video3.loop = true;
-video3.muted = true;
-video3.play();
+const video3 = createVideoElement('videos/EIQ889x500.mp4');
 
 const videoTexture3 = new THREE.VideoTexture(video3);
 videoTexture3.flipY = false; // Flip the texture coordinates
+videoTexture3.minFilter = THREE.LinearFilter;
+videoTexture3.magFilter = THREE.LinearFilter;
+videoTexture3.format = THREE.RGBAFormat;
 
 loader.load('EIQ_C4Dmodel.gltf', (gltf) => {
   console.log('Fourth model loaded successfully');
@@ -158,15 +155,14 @@ loader.load('EIQ_C4Dmodel.gltf', (gltf) => {
 });
 
 // Load the fifth model and apply video texture
-const video4 = document.createElement('video');
-video4.src = 'videos/RedTriangle.mp4'; // Use the relative path to your video file
-video4.loop = true;
-video4.muted = true;
-video4.play();
+const video4 = createVideoElement('videos/RedTriangle.mp4');
 
 
 const videoTexture4 = new THREE.VideoTexture(video4);
 videoTexture4.flipY = false; // Flip the texture coordinates
+videoTexture4.minFilter = THREE.LinearFilter;
+videoTexture4.magFilter = THREE.LinearFilter;
+videoTexture4.format = THREE.RGBAFormat;
 
 
 loader.load('RedTriangle_C4Dmodel_400x400.gltf', (gltf) => {
@@ -195,15 +191,14 @@ loader.load('RedTriangle_C4Dmodel_400x400.gltf', (gltf) => {
 });
 
 // Load the sixth model and apply video texture
-const video5 = document.createElement('video');
-video5.src = 'videos/LYRIQ.mp4'; // Use the relative path to your video file
-video5.loop = true;
-video5.muted = true;
-video5.play();
+const video5 = createVideoElement('videos/LYRIQ.mp4');
 
 
 const videoTexture5 = new THREE.VideoTexture(video5);
 videoTexture5.flipY = false; // Flip the texture coordinates
+videoTexture5.minFilter = THREE.LinearFilter;
+videoTexture5.magFilter = THREE.LinearFilter;
+videoTexture5.format = THREE.RGBAFormat;
 
 
 loader.load('Lyriq.gltf', (gltf) => {
@@ -232,15 +227,14 @@ loader.load('Lyriq.gltf', (gltf) => {
 });
 
 // Load the seventh model and apply video texture
-const video6 = document.createElement('video');
-video6.src = 'videos/707.mp4'; // Use the relative path to your video file
-video6.loop = true;
-video6.muted = true;
-video6.play();
+const video6 = createVideoElement('videos/707.mp4');
 
 
 const videoTexture6 = new THREE.VideoTexture(video6);
 videoTexture6.flipY = false; // Flip the texture coordinates
+videoTexture6.minFilter = THREE.LinearFilter;
+videoTexture6.magFilter = THREE.LinearFilter;
+videoTexture6.format = THREE.RGBAFormat;
 
 
 loader.load('707.gltf', (gltf) => {
@@ -269,15 +263,14 @@ loader.load('707.gltf', (gltf) => {
 });
 
 // Load the eighth model and apply video texture
-const video7 = document.createElement('video');
-video7.src = 'videos/StopMotion.mp4'; // Use the relative path to your video file
-video7.loop = true;
-video7.muted = true;
-video7.play();
+const video7 = createVideoElement('videos/StopMotion.mp4');
 
 
 const videoTexture7 = new THREE.VideoTexture(video7);
 videoTexture7.flipY = false; // Flip the texture coordinates
+videoTexture7.minFilter = THREE.LinearFilter;
+videoTexture7.magFilter = THREE.LinearFilter;
+videoTexture7.format = THREE.RGBAFormat;
 
 
 loader.load('StopMotion2.gltf', (gltf) => {
@@ -306,15 +299,14 @@ loader.load('StopMotion2.gltf', (gltf) => {
 });
 
 // Load the ninth model and apply video texture
-const video8 = document.createElement('video');
-video8.src = 'videos/DFCU.mp4'; // Use the relative path to your video file
-video8.loop = true;
-video8.muted = true;
-video8.play();
+const video8 = createVideoElement('videos/DFCU.mp4');
 
 
 const videoTexture8 = new THREE.VideoTexture(video8);
 videoTexture8.flipY = false; // Flip the texture coordinates
+videoTexture8.minFilter = THREE.LinearFilter;
+videoTexture8.magFilter = THREE.LinearFilter;
+videoTexture8.format = THREE.RGBAFormat;
 
 
 loader.load('dfcu.gltf', (gltf) => {
@@ -343,15 +335,14 @@ loader.load('dfcu.gltf', (gltf) => {
 });
 
 // Load the tenth model and apply video texture
-const video9 = document.createElement('video');
-video9.src = 'videos/YSLV3.mp4'; // Use the relative path to your video file
-video9.loop = true;
-video9.muted = true;
-video9.play();
+const video9 = createVideoElement('videos/YSLV3.mp4');
 
 
 const videoTexture9 = new THREE.VideoTexture(video9);
 videoTexture9.flipY = false; // Flip the texture coordinates
+videoTexture9.minFilter = THREE.LinearFilter;
+videoTexture9.magFilter = THREE.LinearFilter;
+videoTexture9.format = THREE.RGBAFormat;
 
 
 loader.load('YSLV1.gltf', (gltf) => {
@@ -380,15 +371,14 @@ loader.load('YSLV1.gltf', (gltf) => {
 });
 
 // Load the eleventh model and apply video texture
-const video10 = document.createElement('video');
-video10.src = 'videos/XP4.mp4'; // Use the relative path to your video file
-video10.loop = true;
-video10.muted = true;
-video10.play();
+const video10 = createVideoElement('videos/XP4.mp4');
 
 
 const videoTexture10 = new THREE.VideoTexture(video10);
 videoTexture10.flipY = false; // Flip the texture coordinates
+videoTexture10.minFilter = THREE.LinearFilter;
+videoTexture10.magFilter = THREE.LinearFilter;
+videoTexture10.format = THREE.RGBAFormat;
 
 
 loader.load('XP.gltf', (gltf) => {
@@ -417,15 +407,14 @@ loader.load('XP.gltf', (gltf) => {
 });
 
 // Load the twelfth model and apply video texture
-const video11 = document.createElement('video');
-video11.src = 'videos/RB.mp4'; // Use the relative path to your video file
-video11.loop = true;
-video11.muted = true;
-video11.play();
+const video11 = createVideoElement('videos/RB.mp4');
 
 
 const videoTexture11 = new THREE.VideoTexture(video11);
 videoTexture11.flipY = false; // Flip the texture coordinates
+videoTexture11.minFilter = THREE.LinearFilter;
+videoTexture11.magFilter = THREE.LinearFilter;
+videoTexture11.format = THREE.RGBAFormat;
 
 
 loader.load('RB.gltf', (gltf) => {
