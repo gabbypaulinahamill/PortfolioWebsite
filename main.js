@@ -99,11 +99,7 @@ loader.load('ChaseAndI_C4Dmodel_300x400.gltf', (gltf) => {
 });
 
 // Load the second model and apply video texture
-const video = document.createElement('video');
-video.src = 'videos/rorschech video.mp4'; // Use the relative path to your video file
-video.loop = true;
-video.muted = true;
-video.play();
+const video = createVideoElement('videos/rorschech video.mp4');
 
 const videoTexture = new THREE.VideoTexture(video);
 videoTexture.flipY = false; // Flip the texture coordinates
@@ -141,11 +137,7 @@ loader.load('Rorschech_C4Dmodel.gltf', (gltf) => {
 });
 
 // Load the third model and apply video texture
-const video2 = document.createElement('video');
-video2.src = 'videos/VirtualProduction700x540.mp4'; // Use the relative path to your video file
-video2.loop = true;
-video2.muted = true;
-video2.play();
+const video2 = createVideoElement('videos/VirtualProduction700x540.mp4');
 
 const videoTexture2 = new THREE.VideoTexture(video2);
 videoTexture2.flipY = false; // Flip the texture coordinates 
@@ -184,11 +176,7 @@ loader.load('VirtualProduction_C4DBlankmodelV2.gltf', (gltf) => {
 
 
 // Load the fourth model and apply video texture
-const video3 = document.createElement('video');
-video3.src = 'videos/EIQ889x500.mp4'; // Use the relative path to your video file
-video3.loop = true;
-video3.muted = true;
-video3.play();
+const video3 = createVideoElement('videos/EIQ889x500.mp4');
 
 const videoTexture3 = new THREE.VideoTexture(video3);
 videoTexture3.flipY = false; // Flip the texture coordinates
@@ -226,21 +214,14 @@ loader.load('EIQ_C4Dmodel.gltf', (gltf) => {
 });
 
 // Load the fifth model and apply video texture
-const video4 = document.createElement('video');
-video4.src = 'videos/RedTriangle.mp4'; // Use the relative path to your video file
-video4.loop = true;
-video4.muted = true;
-video4.play();
-
+const video4 = createVideoElement('videos/RedTriangle.mp4');
 
 const videoTexture4 = new THREE.VideoTexture(video4);
 videoTexture4.flipY = false; // Flip the texture coordinates
 
-
 loader.load('RedTriangle_C4Dmodel_400x400.gltf', (gltf) => {
   console.log('Fifth model loaded successfully');
   const model5 = gltf.scene;
-
 
   model5.traverse((child) => {
     if (child.isMesh) {
@@ -251,7 +232,6 @@ loader.load('RedTriangle_C4Dmodel_400x400.gltf', (gltf) => {
       child.material.needsUpdate = true;
     }
   });
-
 
   const randomPosition = getRandomPosition();
   model5.position.copy(randomPosition);
@@ -272,21 +252,14 @@ loader.load('RedTriangle_C4Dmodel_400x400.gltf', (gltf) => {
 });
 
 // Load the sixth model and apply video texture
-const video5 = document.createElement('video');
-video5.src = 'videos/LYRIQ.mp4'; // Use the relative path to your video file
-video5.loop = true;
-video5.muted = true;
-video5.play();
-
+const video5 = createVideoElement('videos/LYRIQ.mp4');
 
 const videoTexture5 = new THREE.VideoTexture(video5);
 videoTexture5.flipY = false; // Flip the texture coordinates
 
-
 loader.load('Lyriq.gltf', (gltf) => {
   console.log('Sixth model loaded successfully');
   const model6 = gltf.scene;
-
 
   model6.traverse((child) => {
     if (child.isMesh) {
@@ -297,7 +270,6 @@ loader.load('Lyriq.gltf', (gltf) => {
       child.material.needsUpdate = true;
     }
   });
-
 
   const randomPosition = getRandomPosition();
   model6.position.copy(randomPosition);
@@ -318,21 +290,14 @@ loader.load('Lyriq.gltf', (gltf) => {
 });
 
 // Load the seventh model and apply video texture
-const video6 = document.createElement('video');
-video6.src = 'videos/707.mp4'; // Use the relative path to your video file
-video6.loop = true;
-video6.muted = true;
-video6.play();
-
+const video6 = createVideoElement('videos/707.mp4');
 
 const videoTexture6 = new THREE.VideoTexture(video6);
 videoTexture6.flipY = false; // Flip the texture coordinates
 
-
 loader.load('707.gltf', (gltf) => {
   console.log('Seventh model loaded successfully');
   const model7 = gltf.scene;
-
 
   model7.traverse((child) => {
     if (child.isMesh) {
@@ -343,7 +308,6 @@ loader.load('707.gltf', (gltf) => {
       child.material.needsUpdate = true;
     }
   });
-
 
   const randomPosition = getRandomPosition();
   model7.position.copy(randomPosition);
@@ -364,21 +328,14 @@ loader.load('707.gltf', (gltf) => {
 });
 
 // Load the eighth model and apply video texture
-const video7 = document.createElement('video');
-video7.src = 'videos/StopMotion.mp4'; // Use the relative path to your video file
-video7.loop = true;
-video7.muted = true;
-video7.play();
-
+const video7 = createVideoElement('videos/StopMotion.mp4');
 
 const videoTexture7 = new THREE.VideoTexture(video7);
 videoTexture7.flipY = false; // Flip the texture coordinates
 
-
 loader.load('StopMotion2.gltf', (gltf) => {
   console.log('Eighth model loaded successfully');
   const model8 = gltf.scene;
-
 
   model8.traverse((child) => {
     if (child.isMesh) {
@@ -389,7 +346,6 @@ loader.load('StopMotion2.gltf', (gltf) => {
       child.material.needsUpdate = true;
     }
   });
-
 
   const randomPosition = getRandomPosition();
   model8.position.copy(randomPosition);
@@ -410,21 +366,14 @@ loader.load('StopMotion2.gltf', (gltf) => {
 });
 
 // Load the ninth model and apply video texture
-const video8 = document.createElement('video');
-video8.src = 'videos/DFCU.mp4'; // Use the relative path to your video file
-video8.loop = true;
-video8.muted = true;
-video8.play();
-
+const video8 = createVideoElement('videos/DFCU.mp4');
 
 const videoTexture8 = new THREE.VideoTexture(video8);
 videoTexture8.flipY = false; // Flip the texture coordinates
 
-
 loader.load('dfcu.gltf', (gltf) => {
   console.log('Ninth model loaded successfully');
   const model9 = gltf.scene;
-
 
   model9.traverse((child) => {
     if (child.isMesh) {
@@ -435,7 +384,6 @@ loader.load('dfcu.gltf', (gltf) => {
       child.material.needsUpdate = true;
     }
   });
-
 
   const randomPosition = getRandomPosition();
   model9.position.copy(randomPosition);
@@ -456,21 +404,14 @@ loader.load('dfcu.gltf', (gltf) => {
 });
 
 // Load the tenth model and apply video texture
-const video9 = document.createElement('video');
-video9.src = 'videos/YSLV3.mp4'; // Use the relative path to your video file
-video9.loop = true;
-video9.muted = true;
-video9.play();
-
+const video9 = createVideoElement('videos/YSLV3.mp4');
 
 const videoTexture9 = new THREE.VideoTexture(video9);
 videoTexture9.flipY = false; // Flip the texture coordinates
 
-
 loader.load('YSLV1.gltf', (gltf) => {
   console.log('Tenth model loaded successfully');
   const model10 = gltf.scene;
-
 
   model10.traverse((child) => {
     if (child.isMesh) {
@@ -481,7 +422,6 @@ loader.load('YSLV1.gltf', (gltf) => {
       child.material.needsUpdate = true;
     }
   });
-
 
   const randomPosition = getRandomPosition();
   model10.position.copy(randomPosition);
@@ -502,21 +442,14 @@ loader.load('YSLV1.gltf', (gltf) => {
 });
 
 // Load the eleventh model and apply video texture
-const video10 = document.createElement('video');
-video10.src = 'videos/XP4.mp4'; // Use the relative path to your video file
-video10.loop = true;
-video10.muted = true;
-video10.play();
-
+const video10 = createVideoElement('videos/XP4.mp4');
 
 const videoTexture10 = new THREE.VideoTexture(video10);
 videoTexture10.flipY = false; // Flip the texture coordinates
 
-
 loader.load('XP.gltf', (gltf) => {
   console.log('Eleventh model loaded successfully');
   const model11 = gltf.scene;
-
 
   model11.traverse((child) => {
     if (child.isMesh) {
@@ -527,7 +460,6 @@ loader.load('XP.gltf', (gltf) => {
       child.material.needsUpdate = true;
     }
   });
-
 
   const randomPosition = getRandomPosition();
   model11.position.copy(randomPosition);
@@ -548,21 +480,14 @@ loader.load('XP.gltf', (gltf) => {
 });
 
 // Load the twelfth model and apply video texture
-const video11 = document.createElement('video');
-video11.src = 'videos/RB.mp4'; // Use the relative path to your video file
-video11.loop = true;
-video11.muted = true;
-video11.play();
-
+const video11 = createVideoElement('videos/RB.mp4');
 
 const videoTexture11 = new THREE.VideoTexture(video11);
 videoTexture11.flipY = false; // Flip the texture coordinates
 
-
 loader.load('RB.gltf', (gltf) => {
   console.log('Twelfth model loaded successfully');
   const model12 = gltf.scene;
-
 
   model12.traverse((child) => {
     if (child.isMesh) {
@@ -573,7 +498,6 @@ loader.load('RB.gltf', (gltf) => {
       child.material.needsUpdate = true;
     }
   });
-
 
   const randomPosition = getRandomPosition();
   model12.position.copy(randomPosition);
@@ -746,4 +670,29 @@ function onClick(event) {
             window.location.href = `project.html?project=${encodeURIComponent(modelInfo.name)}`;
         }
     }
+}
+
+function createVideoElement(src) {
+    const video = document.createElement('video');
+    video.crossOrigin = "anonymous";
+    video.src = src;
+    video.loop = true;
+    video.muted = true;
+    
+    // Add error handling
+    video.onerror = function() {
+        console.error(`Error loading video: ${src}`);
+        console.error('Error code:', video.error.code);
+        console.error('Error message:', video.error.message);
+    };
+    
+    video.onloadeddata = function() {
+        console.log(`Video loaded successfully: ${src}`);
+    };
+    
+    video.play().catch(function(error) {
+        console.log("Video play failed:", error);
+    });
+    
+    return video;
 }
