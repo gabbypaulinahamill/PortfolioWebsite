@@ -6,49 +6,45 @@ function createVideoElement(src) {
     const video = document.createElement('video');
     video.crossOrigin = "anonymous";
     
-    // Log initial setup
-    console.log('Creating video element for:', src);
-    console.log('Current hostname:', window.location.hostname);
+    // Create multiple source elements with different base URLs
+    const sources = [
+        `https://raw.githubusercontent.com/gabbypaulinahamill/PortfolioWebsite/main/${src}`,
+        `https://gabbypaulinahamill.github.io/PortfolioWebsite/${src}`,
+        `/${src}`,
+        src
+    ];
     
-    // Check if we're running locally or on GitHub Pages
-    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    console.log('Is local environment:', isLocal);
+    console.log('Trying video sources:', sources);
     
-    // Set video source based on environment
-    if (isLocal) {
-        video.src = src;
-    } else {
-        const cleanSrc = src.startsWith('/') ? src.slice(1) : src;
-        video.src = `https://raw.githubusercontent.com/gabbypaulinahamill/PortfolioWebsite/main/${cleanSrc}`;
-    }
-    console.log('Final video source:', video.src);
+    // Try each source
+    sources.forEach(sourceUrl => {
+        const source = document.createElement('source');
+        source.src = sourceUrl;
+        source.type = 'video/mp4';
+        video.appendChild(source);
+    });
     
-    // Add detailed event listeners for all video events
-    video.addEventListener('loadstart', () => console.log(`Loadstart - ${src}`));
-    video.addEventListener('durationchange', () => console.log(`Duration change - ${src}`));
-    video.addEventListener('loadedmetadata', () => console.log(`Loaded metadata - ${src}`));
-    video.addEventListener('loadeddata', () => console.log(`Loaded data - ${src}`));
-    video.addEventListener('progress', () => console.log(`Loading progress - ${src}`));
-    video.addEventListener('canplay', () => console.log(`Can play - ${src}`));
-    video.addEventListener('canplaythrough', () => console.log(`Can play through - ${src}`));
+    video.loop = true;
+    video.muted = true;
+    video.playsInline = true;
     
     // Enhanced error handling
     video.onerror = function() {
         console.group(`Video Error Details for ${src}`);
         console.error('Error code:', video.error?.code);
         console.error('Error message:', video.error?.message);
-        console.error('Current src:', video.src);
+        console.error('Failed sources:', sources);
         console.error('Network state:', video.networkState);
         console.error('Ready state:', video.readyState);
         console.groupEnd();
         
-        // Try to fetch the video directly to check CORS/network issues
-        fetch(video.src)
+        // Try fetching the first source to check headers
+        fetch(sources[0], { method: 'HEAD' })
             .then(response => {
-                console.log(`Fetch response for ${src}:`, {
+                console.log('File headers:', {
                     status: response.status,
-                    statusText: response.statusText,
-                    headers: [...response.headers.entries()]
+                    type: response.headers.get('content-type'),
+                    size: response.headers.get('content-length')
                 });
             })
             .catch(error => console.error('Fetch error:', error));
