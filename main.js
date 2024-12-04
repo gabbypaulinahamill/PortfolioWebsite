@@ -2,6 +2,35 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
+function createVideoElement(src) {
+    const video = document.createElement('video');
+    video.crossOrigin = "anonymous";
+    video.src = src;
+    video.loop = true;
+    video.muted = true;
+    video.playsInline = true;
+    
+    // Add error handling
+    video.onerror = function() {
+        console.error(`Error loading video: ${src}`);
+        console.error('Error code:', video.error?.code);
+        console.error('Error message:', video.error?.message);
+    };
+    
+    video.onloadeddata = function() {
+        console.log(`Video loaded successfully: ${src}`);
+    };
+    
+    video.play().catch(function(error) {
+        console.log("Video play failed:", error);
+        // Handle autoplay failure
+        video.muted = true;
+        video.play().catch(console.error);
+    });
+    
+    return video;
+}
+
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -703,33 +732,4 @@ function onClick(event) {
             window.location.href = `project.html?project=${encodeURIComponent(modelInfo.name)}`;
         }
     }
-}
-
-function createVideoElement(src) {
-    const video = document.createElement('video');
-    video.crossOrigin = "anonymous";
-    video.src = src;
-    video.loop = true;
-    video.muted = true;
-    video.playsInline = true;
-    
-    // Add error handling
-    video.onerror = function() {
-        console.error(`Error loading video: ${src}`);
-        console.error('Error code:', video.error?.code);
-        console.error('Error message:', video.error?.message);
-    };
-    
-    video.onloadeddata = function() {
-        console.log(`Video loaded successfully: ${src}`);
-    };
-    
-    video.play().catch(function(error) {
-        console.log("Video play failed:", error);
-        // Handle autoplay failure
-        video.muted = true;
-        video.play().catch(console.error);
-    });
-    
-    return video;
 }
