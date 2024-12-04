@@ -6,46 +6,28 @@ function createVideoElement(src) {
     const video = document.createElement('video');
     video.crossOrigin = "anonymous";
     
-    // Only log once per video
-    console.group(`🎥 Loading video: ${src}`);
+    // Use a single, direct source with the correct path
+    const videoUrl = `https://gabbypaulinahamill.github.io/video-fixes/${src}`;
+    console.log('🎥 Loading video:', videoUrl);
     
-    // Create multiple source elements with different base URLs
-    const sources = [
-        `https://raw.githubusercontent.com/gabbypaulinahamill/PortfolioWebsite/main/${src}`,
-        `https://gabbypaulinahamill.github.io/PortfolioWebsite/${src}`,
-        `/${src}`,
-        src
-    ];
-    
-    // Try each source
-    sources.forEach(sourceUrl => {
-        const source = document.createElement('source');
-        source.src = sourceUrl;
-        source.type = 'video/mp4';
-        video.appendChild(source);
-    });
-    
+    video.src = videoUrl;
     video.loop = true;
     video.muted = true;
     video.playsInline = true;
     
-    // Simplified error handling
-    video.onerror = function() {
-        console.error('Video failed to load:', {
-            src: src,
-            errorCode: video.error?.code,
-            errorMessage: video.error?.message
+    // Add better error handling
+    video.addEventListener('error', (e) => {
+        console.error('Video error:', {
+            src: videoUrl,
+            code: video.error?.code,
+            message: video.error?.message
         });
-        
-        // Test direct access to first source
-        fetch(sources[0], { method: 'HEAD' })
-            .then(response => console.log('File headers:', {
-                status: response.status,
-                type: response.headers.get('content-type'),
-                size: response.headers.get('content-length')
-            }))
-            .catch(error => console.error('Fetch error:', error));
-    };
+    });
+    
+    // Auto-play when possible
+    video.addEventListener('loadedmetadata', () => {
+        video.play().catch(e => console.warn('Auto-play failed:', e));
+    });
     
     return video;
 }
