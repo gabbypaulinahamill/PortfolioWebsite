@@ -188,7 +188,7 @@ loader.load('Rorschech_C4Dmodel.gltf', (gltf) => {
 });
 
 // Load the third model and apply video texture
-const video2 = createVideoElement('videos/VirtualProduction700x540.mp4');
+const video2 = createVideoElement('videos/VirtualProduction/700x540.mp4');
 
 const videoTexture2 = new THREE.VideoTexture(video2);
 videoTexture2.flipY = false; // Flip the texture coordinates 
