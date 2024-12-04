@@ -6,43 +6,53 @@ function createVideoElement(src) {
     const video = document.createElement('video');
     video.crossOrigin = "anonymous";
     
+    // Log initial setup
+    console.log('Creating video element for:', src);
+    console.log('Current hostname:', window.location.hostname);
+    
     // Check if we're running locally or on GitHub Pages
     const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    console.log('Is local environment:', isLocal);
     
     // Set video source based on environment
     if (isLocal) {
         video.src = src;
     } else {
-        // Remove leading slash if present
         const cleanSrc = src.startsWith('/') ? src.slice(1) : src;
         video.src = `https://raw.githubusercontent.com/gabbypaulinahamill/PortfolioWebsite/main/${cleanSrc}`;
     }
+    console.log('Final video source:', video.src);
     
-    video.type = 'video/mp4';
-    video.loop = true;
-    video.muted = true;
-    video.playsInline = true;
+    // Add detailed event listeners for all video events
+    video.addEventListener('loadstart', () => console.log(`Loadstart - ${src}`));
+    video.addEventListener('durationchange', () => console.log(`Duration change - ${src}`));
+    video.addEventListener('loadedmetadata', () => console.log(`Loaded metadata - ${src}`));
+    video.addEventListener('loadeddata', () => console.log(`Loaded data - ${src}`));
+    video.addEventListener('progress', () => console.log(`Loading progress - ${src}`));
+    video.addEventListener('canplay', () => console.log(`Can play - ${src}`));
+    video.addEventListener('canplaythrough', () => console.log(`Can play through - ${src}`));
     
     // Enhanced error handling
     video.onerror = function() {
-        console.error(`Error loading video from: ${video.src}`);
-        if (video.error) {
-            console.error('Error code:', video.error.code);
-            console.error('Error message:', video.error.message);
-        }
+        console.group(`Video Error Details for ${src}`);
+        console.error('Error code:', video.error?.code);
+        console.error('Error message:', video.error?.message);
+        console.error('Current src:', video.src);
+        console.error('Network state:', video.networkState);
+        console.error('Ready state:', video.readyState);
+        console.groupEnd();
+        
+        // Try to fetch the video directly to check CORS/network issues
+        fetch(video.src)
+            .then(response => {
+                console.log(`Fetch response for ${src}:`, {
+                    status: response.status,
+                    statusText: response.statusText,
+                    headers: [...response.headers.entries()]
+                });
+            })
+            .catch(error => console.error('Fetch error:', error));
     };
-    
-    video.onloadeddata = function() {
-        console.log(`Video loaded successfully from: ${video.src}`);
-    };
-    
-    // Ensure video plays
-    video.play().catch(function(error) {
-        console.log("Video play failed:", error);
-        // Always try with muted if initial play fails
-        video.muted = true;
-        video.play().catch(console.error);
-    });
     
     return video;
 }
